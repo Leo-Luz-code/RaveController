@@ -1,7 +1,11 @@
 #include "ssd1306.h"
-#include "font.h"
 
 char c;
+
+static uint8_t font[] =
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Nothing
+};
 
 void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height, bool external_vcc, uint8_t address, i2c_inst_t *i2c)
 {
@@ -217,16 +221,6 @@ void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
     else if (c >= 'a' && c <= 'z')
     {
         index = (c - 'a' + 37) * 8;
-    }
-    // Para o caractere '%'
-    else if (c == '%')
-    {
-        index = (c - '%' + 63) * 8; // Índice para '%'
-    }
-    // Para o caractere ':'
-    else if (c == ':')
-    {
-        index = (c - ':' + 64) * 8; // Índice para '%'
     }
 
     for (uint8_t i = 0; i < 8; ++i)
